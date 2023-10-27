@@ -11,7 +11,7 @@ jobs:
    - name: Checkout code
      uses: actions/checkout@v2
 
-   - name: Set uo Python
+   - name: Set up Python
      uses: actions/setup-python@v2
      with:
        python-version: 3.8
@@ -28,4 +28,39 @@ jobs:
      with:
       name: bandit-findings
       path: bandit-report.json
+
+ sca_scan:
+   name: Run Safety Scan
+   runs-on: ubuntu-latest
+
+   steps:
+   - name: Checkout code
+     uses: actions/checkout@v2
+
+   - name: Set up Python
+     uses: actions/setup-python@v2
+     with:
+       python-version: 3.8
+
+   - name: Install Satefy
+     run: pip install safety
+
+   - name: Run Dependencies Scan
+     run: safety check -r requirements.txt --output json > safety-report.json
+
+   - name: Upload Artifact
+     uses: actions/upload-artifact@v3
+     if: always()
+     with:
+      name: safety-findings
+      path: safety-report.json
+
+
+
+
+
+
+
+
+
    
