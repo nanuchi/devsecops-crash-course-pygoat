@@ -46,17 +46,7 @@ jobs:
      run: pip install safety
 
    - name: Run Dependencies Scan
-     run: safety check -r requirements.txt --output json > safety-report.json
-
-   - name: Upload Artifact
-     uses: actions/upload-artifact@v3
-     if: always()
-     with:
-      name: safety-findings
-      path: safety-report.json
-
-
-
+     run: safety check -r requirements.txt
 
 
 
