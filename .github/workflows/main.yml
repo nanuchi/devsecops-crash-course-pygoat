@@ -46,7 +46,14 @@ jobs:
      run: pip install safety
 
    - name: Run Dependencies Scan
-     run: safety check -r requirements.txt
+     run: safety check -r requirements.txt --output json > sca-report.json
+
+   - name: Upload Artifact
+     uses: actions/upload-artifact@v3
+     if: always()
+     with:
+       name: safety-check-findings
+       path: sca-report.json
 
 
 
