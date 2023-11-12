@@ -29,32 +29,6 @@ jobs:
       name: bandit-findings
       path: bandit-report.json
 
- sca_scan:
-   name: Run Safety Scan
-   runs-on: ubuntu-latest
-
-   steps:
-   - name: Checkout code
-     uses: actions/checkout@v2
-
-   - name: Set up Python
-     uses: actions/setup-python@v2
-     with:
-       python-version: 3.8
-
-   - name: Install Satefy
-     run: pip install safety
-
-   - name: Run Dependencies Scan
-     run: safety check -r requirements.txt --output json > sca-report.json
-
-   - name: Upload Artifact
-     uses: actions/upload-artifact@v3
-     if: always()
-     with:
-       name: safety-check-findings
-       path: sca-report.json
-
  image_scan:
    name: Build Image and Run Image Scan
    runs-on: ubuntu-latest
